@@ -43,10 +43,10 @@ func main() {
 		Info: spec.InfoProps{
 			Title:   "KubeSphere Advanced",
 			Version: "v2.0.0",
-			Contact:&spec.ContactInfo{
-				Name: "KubeSphere",
-				URL:"https://kubesphere.io/",
-				Email:"kubesphere@yunify.com",
+			Contact: &spec.ContactInfo{
+				Name:  "KubeSphere",
+				URL:   "https://kubesphere.io/",
+				Email: "kubesphere@yunify.com",
 			},
 			License: &spec.License{
 				Name: "Apache 2.0",
@@ -61,13 +61,13 @@ func main() {
 			devopsv1alpha2.SchemeGroupVersion.WithResource(devopsv1alpha2.ResourcePluralDevOpsProject),
 			iamv1alpha2.SchemeGroupVersion.WithResource(iamv1alpha2.ResourcePluralWorkspace),
 		},
-		Mapper:mapper,
+		Mapper: mapper,
 	})
 	if err != nil {
 		glog.Fatal(err)
 	}
 
-	filename := build.Default.GOPATH+"/src/github.com/runzexia/kubesphere-crd-sample/api/openapi-spec/swagger.json"
+	filename := build.Default.GOPATH + "/src/github.com/runzexia/kubesphere-crd-sample/api/openapi-spec/swagger.json"
 	err = os.MkdirAll(filepath.Dir(filename), 0755)
 	if err != nil {
 		glog.Fatal(err)
