@@ -125,7 +125,17 @@ func RenderOpenAPISpec(cfg Config) (string, error) {
 			storage := map[string]rest.Storage{}
 			for r, stuff := range resmap {
 				storage[r] = NewREST(stuff)
+				storage[r+"/status"] = NewStatusREST(
+					StatusResourceInfo{
+						gvk: struct {
+							Group   string
+							Version string
+							Kind    string
+						}{Group: stuff.gvk.Group, Version: stuff.gvk.Version, Kind: stuff.gvk.Kind},
+						obj: stuff.obj,
+					})
 			}
+
 			apiGroupInfo.VersionedResourcesStorageMap[gv.Version] = storage
 
 			if err := genericServer.InstallAPIGroup(&apiGroupInfo); err != nil {

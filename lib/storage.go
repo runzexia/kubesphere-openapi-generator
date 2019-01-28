@@ -16,15 +16,30 @@ type ResourceInfo struct {
 	list runtime.Object
 }
 
+type StatusResourceInfo struct {
+	gvk schema.GroupVersionKind
+	obj runtime.Object
+}
+
 type StandardStorage struct {
 	cfg ResourceInfo
 }
 
+type StatusStandardStorage struct {
+	cfg StatusResourceInfo
+}
+
 var _ rest.GroupVersionKindProvider = &StandardStorage{}
 var _ rest.StandardStorage = &StandardStorage{}
+var _ rest.GroupVersionKindProvider = &StatusStandardStorage{}
+var _ rest.Patcher = &StatusStandardStorage{}
 
 func NewREST(cfg ResourceInfo) *StandardStorage {
 	return &StandardStorage{cfg}
+}
+
+func NewStatusREST(cfg StatusResourceInfo) *StatusStandardStorage {
+	return &StatusStandardStorage{cfg}
 }
 
 func (r *StandardStorage) GroupVersionKind(containingGV schema.GroupVersion) schema.GroupVersionKind {
@@ -75,4 +90,23 @@ func (r *StandardStorage) Watch(ctx context.Context, options *metainternalversio
 
 func (r *StandardStorage) NamespaceScoped() bool {
 	return false
+}
+
+func (r *StatusStandardStorage) GroupVersionKind(containingGV schema.GroupVersion) schema.GroupVersionKind {
+	return r.cfg.gvk
+}
+
+// Patcher
+func (r *StatusStandardStorage) New() runtime.Object {
+	return r.cfg.obj
+}
+
+// Patcher
+func (r *StatusStandardStorage) Update(ctx context.Context, name string, objInfo rest.UpdatedObjectInfo, createValidation rest.ValidateObjectFunc, updateValidation rest.ValidateObjectUpdateFunc, forceAllowCreate bool, options *metav1.UpdateOptions) (runtime.Object, bool, error) {
+	return r.New(), true, nil
+}
+
+// Patcher
+func (r *StatusStandardStorage) Get(ctx context.Context, name string, options *metav1.GetOptions) (runtime.Object, error) {
+	return r.New(), nil
 }
