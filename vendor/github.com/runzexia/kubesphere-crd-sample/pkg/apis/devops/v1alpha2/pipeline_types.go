@@ -21,32 +21,32 @@ import (
 )
 
 const (
-	ResourceKindWorkspace     = "Workspace"
-	ResourceSingularWorkspace = "workspace"
-	ResourcePluralWorkspace   = "workspaces"
+	ResourceKindPipeline     = "Pipeline"
+	ResourceSingularPipeline = "pipeline"
+	ResourcePluralPipelines  = "pipelines"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// WorkspaceSpec defines the desired state of Workspace
-type WorkspaceSpec struct {
+// PipelineSpec defines the desired state of Pipeline
+type PipelineSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// DisplayName is DisplayName of Workspace
+	// DisplayName is DisplayName of Pipeline
 	DisplayName string `json:"displayName,omitempty"`
 
-	// Description is Description of Workspace
+	// Description is Description of Pipeline
 	Description string `json:"description,omitempty"`
 }
 
-// WorkspaceStatus defines the observed state of Workspace
-type WorkspaceStatus struct {
+// PipelineStatus defines the observed state of Pipeline
+type PipelineStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Phase is Status of Workspace
+	// Phase is Status of Pipeline
 	Phase string `json:"phase,omitempty"`
 }
 
@@ -54,27 +54,27 @@ type WorkspaceStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +genclient:nonNamespaced
 
-// Workspace is the Schema for the workspaces API
+// Pipeline is the Schema for the pipelines API
 // +k8s:openapi-gen=true
 // +kubebuilder:subresource:status
-type Workspace struct {
+type Pipeline struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   WorkspaceSpec   `json:"spec,omitempty"`
-	Status WorkspaceStatus `json:"status,omitempty"`
+	Spec   PipelineSpec   `json:"spec,omitempty"`
+	Status PipelineStatus `json:"status,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +genclient:nonNamespaced
 
-// WorkspaceList contains a list of Workspace
-type WorkspaceList struct {
+// PipelineList contains a list of Pipeline
+type PipelineList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Workspace `json:"items"`
+	Items           []Pipeline `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&Workspace{}, &WorkspaceList{})
+	SchemeBuilder.Register(&Pipeline{}, &PipelineList{})
 }

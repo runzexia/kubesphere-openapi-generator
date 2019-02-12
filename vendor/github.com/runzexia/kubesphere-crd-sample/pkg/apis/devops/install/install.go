@@ -1,6 +1,5 @@
 package install
 
-
 import (
 	"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2"
 	"k8s.io/apimachinery/pkg/runtime"

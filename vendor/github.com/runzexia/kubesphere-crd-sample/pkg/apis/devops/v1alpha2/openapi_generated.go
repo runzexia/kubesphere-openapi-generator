@@ -35,6 +35,10 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.DevOpsProjectList":   schema_pkg_apis_devops_v1alpha2_DevOpsProjectList(ref),
 		"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.DevOpsProjectSpec":   schema_pkg_apis_devops_v1alpha2_DevOpsProjectSpec(ref),
 		"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.DevOpsProjectStatus": schema_pkg_apis_devops_v1alpha2_DevOpsProjectStatus(ref),
+		"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.Pipeline":            schema_pkg_apis_devops_v1alpha2_Pipeline(ref),
+		"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.PipelineList":        schema_pkg_apis_devops_v1alpha2_PipelineList(ref),
+		"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.PipelineSpec":        schema_pkg_apis_devops_v1alpha2_PipelineSpec(ref),
+		"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.PipelineStatus":      schema_pkg_apis_devops_v1alpha2_PipelineStatus(ref),
 		"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource":                                    schema_k8sio_api_core_v1_AWSElasticBlockStoreVolumeSource(ref),
 		"k8s.io/api/core/v1.Affinity":                                    schema_k8sio_api_core_v1_Affinity(ref),
 		"k8s.io/api/core/v1.AttachedVolume":                              schema_k8sio_api_core_v1_AttachedVolume(ref),
@@ -403,6 +407,142 @@ func schema_pkg_apis_devops_v1alpha2_DevOpsProjectStatus(ref common.ReferenceCal
 					"phase": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Phase is Status of DevOpsProject",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{},
+	}
+}
+
+func schema_pkg_apis_devops_v1alpha2_Pipeline(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Pipeline is the Schema for the pipelines API",
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.PipelineSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.PipelineStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.PipelineSpec", "github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.PipelineStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_devops_v1alpha2_PipelineList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PipelineList contains a list of Pipeline",
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.Pipeline"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/runzexia/kubesphere-crd-sample/pkg/apis/devops/v1alpha2.Pipeline", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
+func schema_pkg_apis_devops_v1alpha2_PipelineSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PipelineSpec defines the desired state of Pipeline",
+				Properties: map[string]spec.Schema{
+					"displayName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DisplayName is DisplayName of Pipeline",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"description": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Description is Description of Pipeline",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{},
+	}
+}
+
+func schema_pkg_apis_devops_v1alpha2_PipelineStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PipelineStatus defines the observed state of Pipeline",
+				Properties: map[string]spec.Schema{
+					"phase": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Phase is Status of Pipeline",
 							Type:        []string{"string"},
 							Format:      "",
 						},

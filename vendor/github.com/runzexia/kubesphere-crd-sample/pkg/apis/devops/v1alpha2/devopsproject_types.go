@@ -21,9 +21,9 @@ import (
 )
 
 const (
-	ResourceKindDevOpsProject       = "DevOpsProject"
-	ResourceSingularDevOpsProject   = "devopsproject"
-	ResourcePluralDevOpsProject     = "devopsprojects"
+	ResourceKindDevOpsProject     = "DevOpsProject"
+	ResourceSingularDevOpsProject = "devopsproject"
+	ResourcePluralDevOpsProject   = "devopsprojects"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -56,6 +56,7 @@ type DevOpsProjectStatus struct {
 
 // DevOpsProject is the Schema for the devopsprojects API
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 type DevOpsProject struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

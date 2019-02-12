@@ -33,6 +33,11 @@ func main() {
 	mapper.AddSpecific(devopsv1alpha2.SchemeGroupVersion.WithKind(devopsv1alpha2.ResourceKindDevOpsProject),
 		devopsv1alpha2.SchemeGroupVersion.WithResource(devopsv1alpha2.ResourcePluralDevOpsProject),
 		devopsv1alpha2.SchemeGroupVersion.WithResource(devopsv1alpha2.ResourceSingularDevOpsProject), meta.RESTScopeRoot)
+
+	mapper.AddSpecific(devopsv1alpha2.SchemeGroupVersion.WithKind(devopsv1alpha2.ResourceKindPipeline),
+		devopsv1alpha2.SchemeGroupVersion.WithResource(devopsv1alpha2.ResourcePluralPipelines),
+		devopsv1alpha2.SchemeGroupVersion.WithResource(devopsv1alpha2.ResourceSingularPipeline), meta.RESTScopeRoot)
+
 	mapper.AddSpecific(iamv1alpha2.SchemeGroupVersion.WithKind(iamv1alpha2.ResourceKindWorkspace),
 		iamv1alpha2.SchemeGroupVersion.WithResource(iamv1alpha2.ResourcePluralWorkspace),
 		iamv1alpha2.SchemeGroupVersion.WithResource(iamv1alpha2.ResourceSingularWorkspace), meta.RESTScopeRoot)
@@ -60,6 +65,7 @@ func main() {
 		Resources: []schema.GroupVersionResource{
 			devopsv1alpha2.SchemeGroupVersion.WithResource(devopsv1alpha2.ResourcePluralDevOpsProject),
 			iamv1alpha2.SchemeGroupVersion.WithResource(iamv1alpha2.ResourcePluralWorkspace),
+			devopsv1alpha2.SchemeGroupVersion.WithResource(devopsv1alpha2.ResourcePluralPipelines),
 		},
 		Mapper: mapper,
 	})
